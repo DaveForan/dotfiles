@@ -56,6 +56,7 @@ return {
 		"rcarriga/nvim-notify",
 		opts = {
 			timeout = 5000,
+			render = "wrapped-default",
 		},
 	},
 
@@ -144,6 +145,10 @@ return {
 			--	},
 			--},
 		},
+	},
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		enabled = false,
 	},
 	{
 		"folke/zen-mode.nvim",

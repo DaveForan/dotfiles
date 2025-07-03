@@ -9,6 +9,8 @@ Several things to run prior to this working:
 brew install fzf ripgrep fd
 brew install --cask font-jetbrains-mono-nerd-font
 brew install --cask iterm2
+
+npm install -g mcp-hub@latest
 ```
 
 You can use whatever nerdfont you want, but its required for the symbols.
