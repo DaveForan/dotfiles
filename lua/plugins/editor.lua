@@ -14,7 +14,7 @@ return {
 	},
 
 	{
-		"echasnovski/mini.hipatterns",
+		"nvim-mini/mini.hipatterns",
 		event = "BufReadPre",
 		opts = {
 			highlighters = {
@@ -216,7 +216,7 @@ return {
 	{
 		"David-Kunz/gen.nvim",
 		opts = {
-			model = "qwen2.5-coder:14b", -- The default model to use.
+			model = "qwen3-coder:latest", -- The default model to use.
 			quit_map = "q", -- set keymap to close the response window
 			retry_map = "<c-r>", -- set keymap to re-send the current prompt
 			accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
@@ -247,6 +247,26 @@ return {
 			-- list_models = '<omitted lua function>', -- Retrieves a list of model names
 			result_filetype = "markdown", -- Configure filetype of the result buffer
 			debug = false, -- Prints errors and the command which is run.
+		},
+	},
+	{
+		"kdheepak/lazygit.nvim",
+		lazy = true,
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		-- setting the keybinding for LazyGit with 'keys' is recommended in
+		-- order to load the plugin when the command is run for the first time
+		keys = {
+			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
 	},
 }

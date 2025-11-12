@@ -1,7 +1,7 @@
 return {
 	-- tools
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		opts = function(_, opts)
 			vim.list_extend(opts.ensure_installed, {
 				"stylua",
@@ -9,9 +9,14 @@ return {
 				"luacheck",
 				"shellcheck",
 				"shfmt",
+				"angular-language-server",
 				"tailwindcss-language-server",
 				"typescript-language-server",
 				"css-lsp",
+				"docker-compose-language-service",
+				"html-lsp",
+				"json-lsp",
+				"prettier",
 			})
 		end,
 	},
@@ -29,35 +34,45 @@ return {
 						return require("lspconfig.util").root_pattern(".git")(...)
 					end,
 				},
-				tsserver = {
+				-- Add vtsls configuration to disable Angular plugin
+				vtsls = {
 					root_dir = function(...)
-						return require("lspconfig.util").root_pattern(".git")(...)
+						return require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git")(...)
 					end,
 					single_file_support = false,
 					settings = {
+						vtsls = {
+							tsserver = {
+								globalPlugins = {}, -- Disable Angular plugin
+							},
+						},
 						typescript = {
 							inlayHints = {
-								includeInlayParameterNameHints = "literal",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = false,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
+								parameterNames = { enabled = "literals" },
+								parameterTypes = { enabled = true },
+								variableTypes = { enabled = false },
+								propertyDeclarationTypes = { enabled = true },
+								functionLikeReturnTypes = { enabled = true },
+								enumMemberValues = { enabled = true },
 							},
 						},
 						javascript = {
 							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
+								parameterNames = { enabled = "all" },
+								parameterTypes = { enabled = true },
+								variableTypes = { enabled = true },
+								propertyDeclarationTypes = { enabled = true },
+								functionLikeReturnTypes = { enabled = true },
+								enumMemberValues = { enabled = true },
 							},
 						},
 					},
+				},
+				-- Add Angular Language Server config here
+				angularls = {
+					root_dir = function(...)
+						return require("lspconfig.util").root_pattern("angular.json", "project.json")(...)
+					end,
 				},
 				html = {},
 				yamlls = {
